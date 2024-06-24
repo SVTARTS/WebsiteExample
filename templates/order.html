@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Order</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 20px;
+        }
+        h2 {
+            color: #333;
+            text-align: center;
+        }
+        .home-button {
+            padding: 10px 20px;
+            background-color: #202020;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: inline-block;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        .home-button:hover {
+            background-color: #202020;
+        }
+        form {
+            background-color: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            margin: 20px auto;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            color: #666;
+        }
+        input[type="text"], input[type="submit"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            background-color: #202020;
+            color: white;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        input[type="submit"]:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <h2>Place an Order</h2>
+    <a href="{{ url_for('home') }}" class="home-button">Home</a>
+    <form method="post">
+        <label for="product">Product:</label>
+        <input type="text" id="product" name="product">
+
+        <label for="quantity">Quantity:</label>
+        <input type="text" id="quantity" name="quantity">
+
+        <label for="structureType">Structure Type:</label>
+        <input type="text" id="structureType" name="Structure Type">
+
+        <label for="structureDescription">Structure Description:</label>
+        <input type="text" id="structureDescription" name="Structure Description">
+
+        <label for="callFreq">Call Freq:</label>
+        <input type="text" id="callFreq" name="Call Freq">
+
+        <label for="spread">Spread (Bps):</label>
+        <input type="text" id="spread" name="Spread (Bps)">
+
+        <label for="settlementDate">Settlement Date:</label>
+        <input type="text" id="settlementDate" name="Settlement Date: ">
+
+        <label for="maturityDate">Maturity Date:</label>
+        <input type="text" id="maturityDate" name="Maturity Date: ">
+
+        <label for="orderAmount">Order Amount (MM):</label>
+        <input type="text" id="orderAmount" name="Order Amount (MM): ">
+
+        <label for="investor">Investor:</label>
+        <input type="text" id="investor" name="Investor: ">
+
+        <input type="submit" value="Place Bid">
+    </form>       
+</body>
+</html>

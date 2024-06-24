@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Orders</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        .home-button {
+            padding: 12px 24px;
+            background-color: #202020;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 20px 0;
+            display: block;
+            width: 200px;
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+            transition: background-color 0.3s ease;
+        }
+        .home-button:hover {
+            background-color: #0056b3;
+        }
+        table {
+            width: 96%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #202020;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #ddf;
+        }
+    </style>
+</head>
+<body>
+    <h2>Your Orders</h2>
+    <a href="{{ url_for('home') }}" class="home-button">Home</a>
+    <table>
+        <thead>
+            <tr>
+                <th>Order #</th>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Structure Type</th>
+                <th>Description</th>
+                <th>Call Frequency</th>
+                <th>Spread (Bps)</th>
+                <th>Settlement Date</th>
+                <th>Maturity Date</th>
+                <th>Order Amount (MM)</th>
+                <th>Investor</th>
+            </tr>
+        </thead>
+        <tbody id="ordersTable">
+            {% for order in order_list %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ order.product }}</td>
+                <td>{{ order.quantity }}</td>
+                <td>{{ order.structure_type }}</td>
+                <td>{{ order.structure_description }}</td>
+                <td>{{ order.call_freq }}</td>
+                <td>{{ order.spread }}</td>
+                <td>{{ order.settlement_date }}</td>
+                <td>{{ order.maturity_date }}</td>
+                <td>{{ order.order_amount }}</td>
+                <td>{{ order.investor }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            function fetchData() {
+                fetch('{{ url_for("fetch_orders") }}')
+                    .then(response => response.json())
+                    .then(data => {
+                        let tableBody = document.getElementById("ordersTable"); // Ensure this ID is assigned to the tbody element
+                        tableBody.innerHTML = ''; // Clear existing rows in the tbody only
+                        data.forEach((order, index) => {
+                            let row = `<tr>
+                                <td>${index + 1}</td>
+                                <td>${order.product}</td>
+                                <td>${order.quantity}</td>
+                                <td>${order.structure_type}</td>
+                                <td>${order.structure_description}</td>
+                                <td>${order.call_freq}</td>
+                                <td>${order.spread}</td>
+                                <td>${order.settlement_date}</td>
+                                <td>${order.maturity_date}</td>
+                                <td>${order.order_amount}</td>
+                                <td>${order.investor}</td>
+                            </tr>`;
+                            tableBody.innerHTML += row;
+                        });
+                    })
+                    .catch(error => console.error('Error fetching orders:', error));
+            }
+            setInterval(fetchData, 500); // Fetch data every 500 milliseconds
+        });
+    </script>
+</body>
+</html>
